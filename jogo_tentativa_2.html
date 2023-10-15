@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Dengue Zero</title>
+        <style type="text/css">
+            
+            @import url('https://fonts.cdnfonts.com/css/arcade-classic');
+
+            body {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                margin: 0px;
+                padding: 0px;
+                border: 0px;
+                width: 100vw;
+                height: 100vh;
+                background-color: #59c449;
+                overflow-y: hidden;
+                overflow-x: hidden;
+                font-family: 'ArcadeClassic', sans-serif;
+            }
+
+            .cronometro {
+                display: none;
+                flex-direction: row;
+                align-items: center;
+                text-align: center;
+                align-content: center;
+                border-radius: 15px;
+                background-color: antiquewhite;
+                margin: 0;
+                padding: 0;
+                width: 18vw;
+                height: 4vh;
+                position: absolute;
+                top: 5vh;
+                right: 5vw;
+            }
+
+            .instrucoes {    /*Atua como o div container*/
+                position: absolute;
+                display: none;
+            }
+
+            .elementosInstrucoes {
+                position: relative;
+                display: flex;
+                width: 100vw;
+                height: 100vh;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .gameOver {
+                position: absolute;
+                display: none;
+                width: 100vw;
+                height: 100vh;
+            }
+
+            .elementosGameOver {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .mapa {        /* Atua como o container */
+                position: absolute;
+                display: none;
+            }
+
+            .elementosMapa {
+                position: relative;
+                display: flex;
+                width: 100vw;
+                height: 100vh;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .faseOvo {
+                background-image: url("https://i.imgur.com/gEgtlBl.png");
+                background-size: cover;
+                display: flex;
+            }
+
+            .faseLarva {
+                background-image: url("https://i.imgur.com/FGiaNxR.png");
+                background-size: cover;
+                display: flex;
+            }
+
+            .fasePupa {
+                background-image: url("https://i.imgur.com/x4VjAMR.png");
+                background-size: cover;
+                display: flex;
+            }
+
+            .faseAdulta {
+                background-image: url("https://i.imgur.com/Eia1PkO.png");
+                background-size: cover;
+                display: flex;
+            }
+
+
+            .telhado {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                background-color: transparent;
+                height: 8vh;
+                width: 6vw;
+                padding-right: 5vb;
+            }
+
+            .questionario {
+                position: absolute;
+                display: none;
+                bottom: 0;
+            }
+
+            .elementosQuestionario {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                background-color: aliceblue;
+                height: 18vh;
+                width: 100vw;
+                border-radius: 15px;
+                align-items: safe baseline;
+                justify-content: left;
+            }
+
+            .opcoes {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: first baseline;
+                justify-content: left;
+            }
+
+            .opcao {
+                background-color: rgb(40, 119, 93);
+                border-radius: 15px;
+                border-color: black;
+                font-size: 2vh;
+                font-family: 'ArcadeClassic', sans-serif;
+                margin-top: 0.5vb;
+                margin-left: 1vw;
+            }
+
+            #imagemFundo {
+                height: 100vh;
+                width: 100vw;
+            }
+
+            #contador {
+                font-size: 1.6vh;
+                font-family: 'ArcadeClassic', sans-serif;
+                margin-left: 1vw;
+                margin-top: 1vh;
+                padding: 0;
+            }
+
+            #textoPergunta {
+                margin-left: 1vw;
+                margin-right: 1vw;
+                margin-top: 0.5vh;
+                margin-bottom: 0.5vh;
+                font-size: 2vh;
+                padding: 0;
+            }
+
+            #telhado1 {
+                position: absolute;
+                display: block;
+                top: 7%;
+                left: 30%;
+            }
+
+            #telhado2 {
+                position: absolute;
+                display: block;
+                top: 34%;
+                left: 17%;
+            }
+
+            #telhado3 {
+                position: absolute;
+                display: block;
+                top: 26%;
+                left: 50%;
+            }
+
+            #telhado4 {
+                position: absolute;
+                display: block;
+                top: 52%;
+                left: 18%;
+            }
+
+            #telhado5 {
+                position: absolute;
+                display: block;
+                top: 60%;
+                left: 48%;
+            }
+
+            #separador {
+                font-family: 'ArcadeClassic', sans-serif;
+                font-size: 3vh;
+                font-weight: bold;
+                align-self: center;
+            }
+
+            #displayMin {
+                font-size: 3vh;
+                font-family: 'ArcadeClassic', sans-serif;
+            }
+
+            #displaySeg {
+                font-size: 3vh;
+                font-family: 'ArcadeClassic', sans-serif;
+            }
+
+            #botaoIniciar {
+                position: absolute;
+                bottom: 11vh;
+                background-color: #59c449;
+                border-color: black;
+                border-radius: 8%;
+                border-width: 7px;
+                border-style: solid;
+                font-size: 4vh;
+                font-family: 'ArcadeClassic', sans-serif;
+            }
+
+            #fundoInstrucoes {
+                height: 100vh;
+                width: 100vw;
+            }
+
+            #fundoGameOver {
+                height: 100vh;
+                width: 100vw;
+            }
+
+            #mapa {
+                height: 100vh;
+                width: 100vw;
+                padding: 0;
+                margin: 0;
+            }
+
+            #textoInstrucoes {
+                font-size: 3vh;
+                font-family: 'ArcadeClassic', sans-serif;
+                text-justify: auto;
+                background-color: #485539;
+                padding: 2vb;
+                top: 10vh;
+                right: 10vw;
+                left: 10vw;
+                bottom: 7vh;
+                position: absolute;
+            }
+
+            #botaoReiniciar {
+                position: absolute;
+                bottom: 17vh;
+                border-color: black;
+                background-color: #59c449;
+                border-radius: 8%;
+                border-width: 7px;
+                border-style: solid;
+                font-size: 5vh;
+                font-family: 'ArcadeClassic', sans-serif;
+            }
+        </style>
+    </head>
+    <body> 
+        <img id='imagemFundo' src="https://i.imgur.com/9O3cbfV.png" alt="Fundo Jogo">
+
+        <div class="instrucoes">
+            <div class="elementosInstrucoes">
+                <img src="https://i.imgur.com/UPZTZo7.png" id="fundoInstrucoes" alt="instrucoes">
+                <p id='textoInstrucoes'>
+                    <strong> como jogar: </strong> <br />
+                    <br />
+                    Tente  impedir  que  a  cidade  seja
+                    tomada  pelo  mosquito  Aedes  Aegypti, 
+                    eliminando  seus  focos.  Os  focos  possuem  quatro  etapas:  
+                    ovos,  larvas,  pupa  e  mosquito  adulto.  
+                    Para  vencer  o  jogo,  chegue  ao  final  
+                    do  tempo  sem  nenhum  mosquito  adulto,  
+                    ou  responda  a  todas  as  perguntas.  
+                    A  cada  pergunta  respondida  corretamente,  somam-se  
+                    mais  10  segundos  de  tempo  ao  cronometro.
+                </p>
+                <button id="botaoIniciar">Iniciar</button>
+            </div>
+        </div>
+
+        <div class="mapa">
+            <div class="elementosMapa">
+                <img id="mapa" src="https://i.imgur.com/JKp1LKo.png" alt="mapa">
+            </div>
+        </div>
+
+        <div class="telhado" id="telhado1"></div>
+        <div class="telhado" id="telhado2"></div>
+        <div class="telhado" id="telhado3"></div>
+        <div class="telhado" id="telhado4"></div>
+        <div class="telhado" id="telhado5"></div>
+
+        <div class="cronometro">
+                <span id = "displayMin"></span><span id = "separador">:</span><span id = "displaySeg"></span>
+        </div>
+
+        <div class="questionario">
+            <div class="elementosQuestionario">
+                <span id="contador"></span>
+                <p id="textoPergunta"></p>
+                <div class = "opcoes">
+                    <button class="opcao" id="opcaoA"></button>
+                    <button class="opcao" id="opcaoB"></button>
+                    <button class="opcao" id="opcaoC"></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="gameOver">
+            <div class="elementosGameOver">
+                <img src="https://i.imgur.com/mFEemaF.png" alt="instrucoes" id="fundoGameOver">
+                <button id="botaoReiniciar">Reiniciar</button>
+            </div>
+        </div>
+        
+        <script>
+            
+            var botao = document.getElementById('botaoIniciar');
+            var botaoReiniciar = document.getElementById('botaoReiniciar');
+            var segIniciais = 121;
+            var telhados = document.querySelectorAll('.telhado');
+            var faseOvo = document.querySelectorAll('.faseOvo');
+            var faseLarva = document.querySelectorAll('.faseLarva');
+            var fasePupa = document.querySelectorAll('.fasePupa');
+            var faseAdulta = document.querySelectorAll('.faseAdulta');   
+            var minTotal;
+            var segInterval;
+            
+            botao.onclick = function () {
+                var imagemFundo = document.querySelector('.mapa');
+                imagemFundo.style.display = 'block';
+                var cronometroDiv = document.querySelector('.cronometro');
+                cronometroDiv.style.display = 'block';
+                iniciarTimer();
+                surgirFoco();
+                setInterval(surgirFoco, 10000);
+                quadroQuestionarios.style.display = 'block';
+                mostrarPergunta();
+                quadroQuestionarios.style.display = 'block';
+                setTimeout(mostrarPergunta, 1000);
+            };
+
+            function mostrarInstrucoes() {
+                var instrucoesDiv = document.querySelector('.instrucoes');
+                instrucoesDiv.style.display = 'block';
+            };
+
+            window.addEventListener('load', function() {
+                setTimeout(mostrarInstrucoes, 1500);
+            });
+
+            function iniciarTimer() {
+                segInterval = setInterval(segundos, 1000);
+            }
+
+            function atualizaTempo(segIniciais) {
+                var spanMin = document.getElementById('displayMin');
+                var spanSeg = document.getElementById('displaySeg');
+                minTotal = Math.floor(segIniciais / 60); // Calcula minutos a partir dos segundos restantes
+                var segundosRestantes = segIniciais % 60;
+
+                spanMin.textContent = minTotal < 10 ? '0' + minTotal : minTotal;
+                spanSeg.textContent = segundosRestantes < 10 ? '0' + segundosRestantes : segundosRestantes;
+            } 
+
+            var numeroInicio = 1
+
+            function surgirFoco() {
+                faseOvo.forEach(function(faseOvo) {
+                    faseOvo.classList.remove('faseOvo');
+                });
+
+                var numeroProximo = numeroInicio ++;
+
+                var telhadoAleatorio = document.getElementById('telhado' + numeroProximo);
+                
+                telhadoAleatorio.classList.add('faseOvo');
+
+                setTimeout(atualizarFaseOvo, 24000);      
+            }
+
+            function atualizarFaseOvo() {
+                var faseAtualOvo = document.querySelectorAll('.faseOvo');
+                faseAtualOvo.forEach(function(faseOvo) {
+                    faseOvo.classList.remove('faseOvo');
+                    faseOvo.classList.add('faseLarva');
+                });
+
+                setInterval(atualizarFaseLarva, 18000);
+            }
+
+            function atualizarFaseLarva() {
+                var faseAtualLarva = document.querySelectorAll('.faseLarva');
+                faseAtualLarva.forEach(function(faseLarva) {
+                    faseLarva.classList.remove('faseLarva');
+                    faseLarva.classList.add('fasePupa');
+                });
+
+                setInterval(atualizarFasePupa, 8000);
+            }
+
+            function atualizarFasePupa() {
+                var faseAtualPupa = document.querySelectorAll('.fasePupa');
+                faseAtualPupa.forEach(function(fasePupa) {
+                    fasePupa.classList.remove('fasePupa');
+                    fasePupa.classList.add('faseAdulta')
+                })
+            }
+
+            var perguntas = [
+                {
+                    pergunta: "Qual destas nao e transmitida pelo Aedes Aegypti?",
+                    alternativaA: "Dengue", 
+                    alternativaB: "Febre amarela", 
+                    alternativaC:"Leptospirose",
+                    alternativaCerta: "Leptospirose",
+                    numeroPergunta: 0,
+                },
+                {
+                    pergunta: "Onde estao os focos do mosquito?",
+                    alternativaA: "Lugares com agua parada", 
+                    alternativaB: "Na terra", 
+                    alternativaC: "No ar",
+                    alternativaCerta: "Lugares com agua parada",
+                    numeroPergunta: 1,
+                },
+                {
+                    pergunta: "O que colocar nos pratos de vasos de plantas para evitar focos do mosquito?",
+                    alternativaA: "Detergente", 
+                    alternativaB: "Areia", 
+                    alternativaC: "Agua",
+                    alternativaCerta: "Areia", 
+                    numeroPergunta: 2,
+                },
+                {
+                    pergunta: "Onde você deve procurar ajuda se estiver com suspeita de Dengue?",
+                    alternativaA: "Shopping", 
+                    alternativaB: "Mercado", 
+                    alternativaC: "Posto de saude, UPA ou hospitais",
+                    alternativaCerta: "Posto de saude, UPA ou hospitais",
+                    numeroPergunta: 3,
+                },
+                {
+                    pergunta:  "Clique na informacao falsa:",
+                    alternativaA: "Apenas se contrai dengue uma vez na vida",
+                    alternativaB: "Somente o mosquito femea pica as pessoas", 
+                    alternativaC: "O Aedes transmite Zika Virus e Chicungunha",
+                    alternativaCerta: "Apenas se contrai dengue uma vez na vida",
+                    numeroPergunta: 4,
+                },
+                {
+                    pergunta: "Qual das doenças a seguir, transmitidas pelo mosquito, possui vacina?",
+                    alternativaA: "Dengue", 
+                    alternativaB: "Febre amarela", 
+                    alternativaC: "Zika virus",
+                    alternativaCerta: "Febre amarela", 
+                    numeroPergunta: 5,
+                },
+                {
+                    pergunta: "6",
+                    alternativaA: "f", 
+                    alternativaB: "g", 
+                    alternativaC: "h",
+                    alternativaCerta: "f", 
+                    numeroPergunta: 6,
+                },
+            ];
+            
+            var numeroPergunta = 0;
+            var quadroQuestionarios = document.querySelector('.questionario');
+            var opcaoEscolhida;
+            var acertos = 0;
+            var erros = 0;
+
+            function mostrarPergunta() {
+                
+                var botaoA = document.getElementById('opcaoA');
+                var botaoB = document.getElementById('opcaoB');
+                var botaoC = document.getElementById('opcaoC');
+                var perguntaElement = document.getElementById('textoPergunta');
+                var perguntaAtual = perguntas[numeroPergunta].pergunta;
+                var alternativaA = perguntas[numeroPergunta].alternativaA;
+                var alternativaB = perguntas[numeroPergunta].alternativaB;
+                var alternativaC = perguntas[numeroPergunta].alternativaC;
+                perguntaElement.textContent = perguntaAtual;
+                botaoA.textContent = perguntas[numeroPergunta].alternativaA;
+                botaoB.textContent = perguntas[numeroPergunta].alternativaB;
+                botaoC.textContent = perguntas[numeroPergunta].alternativaC;
+
+                botaoA.onclick = function () {
+                    opcaoEscolhida = perguntas[numeroPergunta].alternativaA;
+                    verificarResposta();
+                };
+
+                botaoB.onclick = function () {
+                    opcaoEscolhida = perguntas[numeroPergunta].alternativaB;
+                    verificarResposta();
+                };
+
+                botaoC.onclick = function () {
+                    opcaoEscolhida = perguntas[numeroPergunta].alternativaC;
+                    verificarResposta();
+                };   
+                
+                if (numeroPergunta === 6) {
+                    mostrarGameOver();
+                }
+
+                var textoContador = document.getElementById('contador');
+                textoContador.textContent = "Acertos: " + acertos +" | Erros: " + erros;
+            }
+
+            function verificarResposta() {
+                if (numeroPergunta < 6) {
+
+                    if (opcaoEscolhida == perguntas[numeroPergunta].alternativaCerta) {
+                        acertos ++;
+                        segIniciais += 5;
+                    }
+
+                    if (opcaoEscolhida != perguntas[numeroPergunta].alternativaCerta) {
+                        erros ++;
+                        segIniciais -= 15;
+                    }
+
+                    numeroPergunta++;
+                    mostrarPergunta();
+                    atualizaTempo(segIniciais);
+                }
+            }
+
+            function mostrarGameOver() {
+                    var gameOver = document.querySelector('.gameOver');
+                    gameOver.style.display = 'block';
+                    botaoReiniciar = document.getElementById('botaoReiniciar'),
+                    botaoReiniciar.onclick = function () {
+                    clearInterval(segInterval);
+                    window.location.href = window.location.origin + window.location.pathname;
+                    }
+            };
+
+            function segundos() {
+                if (segIniciais >= 0) {
+                    segIniciais--;
+                    atualizaTempo(segIniciais);
+                    if (todosTelhadosComMosquitosAdultos()) {
+                            mostrarGameOver();
+                    }; 
+                    if (segIniciais === 0) {
+                        clearInterval(segInterval);
+                        mostrarGameOver();
+                    }
+                }
+            }
+
+            function todosTelhadosComMosquitosAdultos() {
+                for (var i = 1; i <= 5; i++) {
+                    var telhado = document.getElementById('telhado' + i);
+                    if (!telhado.classList.contains('faseAdulta')) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+        </script>
+    </body>
+</html>
